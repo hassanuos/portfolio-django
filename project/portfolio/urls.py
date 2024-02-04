@@ -4,5 +4,5 @@ urlpatterns = [
     path('', views.home, name='home.html'),
     path('about', views.about, name='about.html'),
     path('contact', views.contact, name='contact.html'),
-    # path('', views.home, name='home.html'),
+    path('blog', views.blog, name='handleblog.html'),
 ]

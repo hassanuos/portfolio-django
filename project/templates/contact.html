@@ -1,7 +1,50 @@
 {% extends 'basic.html' %}
 
-{% block title %}About{% endblock title%}
+{% block title %}Contact{% endblock title%}
 
 {% block body %}
-<h1>Contact Page</h1>
+<div class="container">
+    <div class="row row mt-5 mb-5">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <h3 class="text-white bg-dark text-center p-3">Contact Me</h3>
+            {% for message in messages %}
+                <div class="alert alert-{{message.tags}} alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>{{message}}</strong>
+                </div>
+            {% endfor %}
+            <div class="card p-2">
+                <form action="/contact" method="post" class="form-group">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input id="name" type="text" class="form-control" name="name" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Email</label>
+                        {% if not request.user.is_authenticated %}
+                            <input id="username" type="email" class="form-control" name="email" required/>
+                        {% else %}
+                            <input id="username" value="{{user.email}}" readonly type="email" class="form-control" name="email" required/>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone No.</label>
+                        <input id="phone" type="text" class="form-control" name="num" required/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">How i can help you?</label>
+                        <textarea id="message" class="form-control" name="message" required></textarea>
+                    </div>
+                    <div class="d-grid gap-2 mt-2">
+                        <button type="submit" class="btn btn-dark">Send</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</div>
 {% endblock body %}
